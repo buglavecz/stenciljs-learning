@@ -1,0 +1,9 @@
+$color: red;
+:host {
+  display: block;
+  background: $color;
+  span {
+    font-weight: bold;
+  }
+}
+
