@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, State, Host, h } from '@stencil/core';
 import { format } from '../../utils/utils';
 
 @Component({
@@ -22,14 +22,21 @@ export class MyComponent {
    */
   @Prop() last: string;
 
+  @State() counter: number = 0;
+
   private getText(): string {
     return format(this.first, this.middle, this.last);
   }
 
   render() {
-    return <div>
-        <span>Hello, World!</span>
-        I'm {this.getText()}
-        </div>;
+    return <Host>
+        <span class="red-bg">Hello, <span id="world">World!</span></span> I'm {this.getText()}
+        <br/>
+        <hr/>
+        Counter: <span class={{'big-text': this.counter > 3}}>{this.counter}</span>
+        <br/>
+        <br/>
+        <button onClick={() => {this.counter++}}>add</button>
+    </Host>;
   }
 }

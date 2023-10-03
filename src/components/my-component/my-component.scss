@@ -1,9 +1,17 @@
 $color: red;
 :host {
   display: block;
-  background: $color;
-  span {
+
+  .red-bg {
+    background: $color;
     font-weight: bold;
+  }
+  #world {
+    color: white;
+  }
+
+  .big-text {
+    font-size: 48px;
   }
 }
 
