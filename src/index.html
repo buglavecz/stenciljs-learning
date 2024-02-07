@@ -10,5 +10,22 @@
   </head>
   <body>
     <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+    
+    <br><br>
+    <form action="https://httpbin.org/post" method="post" target="_blank">
+      <input type="text" name="fruit" value="alma">
+
+      <my-radio-group name="radio" onMyChange="(event) => console.log('event', event)">
+        <my-radio value="1">alma</my-radio>
+        <my-radio value="2">körte</my-radio>
+      </my-radio-group>
+      <br><br>
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      const todoListElement = document.querySelector('my-radio-group');
+      todoListElement.addEventListener('myChange', event => { console.log('event',event) })
+    </script>
   </body>
 </html>

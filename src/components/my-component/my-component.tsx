@@ -30,13 +30,21 @@ export class MyComponent {
 
   render() {
     return <Host>
-        <span class="red-bg">Hello, <span id="world">World!</span></span> I'm {this.getText()}
+
+
+      <my-radio-group name="radio" onMyChange={ev => console.log('ev', ev)}>
+        <my-radio value="1">alma</my-radio>
+        <my-radio value="2">körte</my-radio>
+      </my-radio-group>
+
+
+       {/*  <span class="red-bg">Hello, <span id="world">World!</span></span> I'm {this.getText()}
         <br/>
         <hr/>
         Counter: <span class={{'big-text': this.counter > 3}}>{this.counter}</span>
         <br/>
         <br/>
-        <button onClick={() => {this.counter++}}>add</button>
+        <button onClick={() => {this.counter++}}>add</button> */}
     </Host>;
   }
 }

@@ -5,6 +5,10 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Color, StyleEventDetail } from "./components/element-interface";
+import { RadioGroupChangeEventDetail } from "./components/my-radio-group/my-radio-group";
+export { Color, StyleEventDetail } from "./components/element-interface";
+export { RadioGroupChangeEventDetail } from "./components/my-radio-group/my-radio-group";
 export namespace Components {
     interface MyComponent {
         /**
@@ -20,6 +24,50 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface MyRadio {
+        /**
+          * The color to use from your application's color palette. Default options are: `"primary"`, `"secondary"`, `"tertiary"`, `"success"`, `"warning"`, `"danger"`, `"light"`, `"medium"`, and `"dark"`. For more information on colors, see [theming](/docs/theming/basics).
+         */
+        "color"?: Color;
+        /**
+          * If `true`, the user cannot interact with the radio.
+         */
+        "disabled": boolean;
+        /**
+          * The mode determines which platform styles to use.
+         */
+        "mode"?: "ios" | "md";
+        /**
+          * The name of the control, which is submitted with the form data.
+         */
+        "name": string;
+        /**
+          * the value of the radio.
+         */
+        "value"?: any | null;
+    }
+    interface MyRadioGroup {
+        /**
+          * If `true`, the radios can be deselected.
+         */
+        "allowEmptySelection": boolean;
+        /**
+          * The name of the control, which is submitted with the form data.
+         */
+        "name": string;
+        /**
+          * the value of the radio group.
+         */
+        "value"?: any | null;
+    }
+}
+export interface MyRadioCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMyRadioElement;
+}
+export interface MyRadioGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMyRadioGroupElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -28,8 +76,22 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLMyRadioElement extends Components.MyRadio, HTMLStencilElement {
+    }
+    var HTMLMyRadioElement: {
+        prototype: HTMLMyRadioElement;
+        new (): HTMLMyRadioElement;
+    };
+    interface HTMLMyRadioGroupElement extends Components.MyRadioGroup, HTMLStencilElement {
+    }
+    var HTMLMyRadioGroupElement: {
+        prototype: HTMLMyRadioGroupElement;
+        new (): HTMLMyRadioGroupElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "my-radio": HTMLMyRadioElement;
+        "my-radio-group": HTMLMyRadioGroupElement;
     }
 }
 declare namespace LocalJSX {
@@ -47,8 +109,66 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface MyRadio {
+        /**
+          * The color to use from your application's color palette. Default options are: `"primary"`, `"secondary"`, `"tertiary"`, `"success"`, `"warning"`, `"danger"`, `"light"`, `"medium"`, and `"dark"`. For more information on colors, see [theming](/docs/theming/basics).
+         */
+        "color"?: Color;
+        /**
+          * If `true`, the user cannot interact with the radio.
+         */
+        "disabled"?: boolean;
+        /**
+          * The mode determines which platform styles to use.
+         */
+        "mode"?: "ios" | "md";
+        /**
+          * The name of the control, which is submitted with the form data.
+         */
+        "name"?: string;
+        /**
+          * Emitted when the radio button loses focus.
+         */
+        "onMyBlur"?: (event: MyRadioCustomEvent<void>) => void;
+        /**
+          * Emitted when the radio button has focus.
+         */
+        "onMyFocus"?: (event: MyRadioCustomEvent<void>) => void;
+        /**
+          * Emitted when the radio button loses focus.
+         */
+        "onMySelect"?: (event: MyRadioCustomEvent<void>) => void;
+        /**
+          * Emitted when the styles change.
+         */
+        "onMyStyle"?: (event: MyRadioCustomEvent<StyleEventDetail>) => void;
+        /**
+          * the value of the radio.
+         */
+        "value"?: any | null;
+    }
+    interface MyRadioGroup {
+        /**
+          * If `true`, the radios can be deselected.
+         */
+        "allowEmptySelection"?: boolean;
+        /**
+          * The name of the control, which is submitted with the form data.
+         */
+        "name"?: string;
+        /**
+          * Emitted when the value has changed.
+         */
+        "onMyChange"?: (event: MyRadioGroupCustomEvent<RadioGroupChangeEventDetail>) => void;
+        /**
+          * the value of the radio group.
+         */
+        "value"?: any | null;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "my-radio": MyRadio;
+        "my-radio-group": MyRadioGroup;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +176,8 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "my-radio": LocalJSX.MyRadio & JSXBase.HTMLAttributes<HTMLMyRadioElement>;
+            "my-radio-group": LocalJSX.MyRadioGroup & JSXBase.HTMLAttributes<HTMLMyRadioGroupElement>;
         }
     }
 }
